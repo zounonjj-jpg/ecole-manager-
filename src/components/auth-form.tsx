@@ -42,8 +42,10 @@ export function AuthForm({ mode }: { mode: Mode }) {
           options: { data: { full_name: fullName.trim(), intended_role: role, institution_name: school.trim() } },
         });
         if (authError) throw authError;
-        if (data.session) router.push("/espace");
-        else setNotice("Compte créé. Consultez votre boîte e-mail pour confirmer votre adresse avant de vous connecter.");
+        if (data.session) {
+          router.push("/espace");
+          router.refresh();
+        } else setNotice("Votre compte a été créé. Connectez-vous avec votre adresse e-mail et votre mot de passe.");
       } else {
         const { error: authError } = await supabase.auth.signInWithPassword({ email, password });
         if (authError) throw authError;
