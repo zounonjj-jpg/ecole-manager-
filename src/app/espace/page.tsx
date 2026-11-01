@@ -10,6 +10,9 @@ export default async function WorkspacePage() {
   const claims = claimsData.claims;
   const email = typeof claims.email === "string" ? claims.email : "Compte utilisateur";
   const { data: profile } = await supabase.from("profiles").select("full_name").eq("id", claims.sub).maybeSingle();
+  const { data: memberships } = await supabase.from("institution_memberships").select("institution_id, role").eq("user_id", claims.sub).eq("status", "active").limit(1);
+  if (!memberships?.length) redirect("/configuration");
+  const { data: institution } = await supabase.from("institutions").select("name, institution_type, currency_code").eq("id", memberships[0].institution_id).maybeSingle();
   const name = profile?.full_name || email.split("@")[0];
 
   return <main className="workspace">
@@ -23,8 +26,8 @@ export default async function WorkspacePage() {
       <header className="workspace-top"><div className="workspace-search"><Search size={17}/><span>Rechercher dans votre espace...</span></div><div className="workspace-user"><button className="icon-button" aria-label="Notifications"><Bell size={18}/></button><div className="user-avatar">{name.slice(0,1).toUpperCase()}</div><div><b>{name}</b><small>{email}</small></div></div></header>
       <div className="workspace-content">
         <div className="welcome-row"><div><span className="eyebrow">VOTRE ESPACE SCHOOL MANAGER</span><h1>Bonjour, {name.split(" ")[0]} 👋</h1><p>Bienvenue. Voici votre espace de gestion.</p></div><span className="workspace-date">Votre espace sécurisé</span></div>
-        <div className="setup-banner"><div className="setup-symbol"><GraduationCap size={23}/></div><div><b>Votre espace établissement est en préparation</b><p>Votre compte est actif. La prochaine étape consiste à rattacher votre établissement et configurer votre équipe.</p></div><span className="setup-status">Configuration à venir</span></div>
-        <div className="workspace-section-head"><div><h2>Votre tableau de bord</h2><p>Les indicateurs apparaîtront lorsque votre établissement sera configuré.</p></div></div>
+        <div className="setup-banner"><div className="setup-symbol"><GraduationCap size={23}/></div><div><b>{institution?.name || "Votre établissement"}</b><p>Votre espace est prêt. Vous pourrez maintenant organiser les classes, les équipes et les parcours de vos apprenants.</p></div><span className="setup-status">{memberships[0].role === "director" ? "Direction" : memberships[0].role}</span></div>
+        <div className="workspace-section-head"><div><h2>Votre tableau de bord</h2><p>Les indicateurs seront actualisés à mesure que vous ajouterez vos données scolaires.</p></div></div>
         <div className="workspace-metrics"><article><span><Users size={18}/></span><small>Apprenants</small><b>—</b><em>À configurer</em></article><article><span><BookOpen size={18}/></span><small>Enseignants</small><b>—</b><em>À configurer</em></article><article><span><CalendarCheck size={18}/></span><small>Présences</small><b>—</b><em>À configurer</em></article><article><span><Wallet size={18}/></span><small>Finances</small><b>—</b><em>À configurer</em></article></div>
         <div className="workspace-lower"><article className="empty-panel"><div><h3>Commencez par configurer votre établissement</h3><p>Les modules seront activés progressivement selon le type d'établissement et les accès de chaque membre.</p></div><div className="empty-illustration"><GraduationCap size={42}/></div></article><article className="quick-panel"><h3>Accès rapides</h3><a href="#students"><Users size={17}/> Gestion des apprenants <ArrowUpRight size={15}/></a><a href="#academics"><BookOpen size={17}/> Suivi pédagogique <ArrowUpRight size={15}/></a><a href="#finance"><Wallet size={17}/> Suivi financier <ArrowUpRight size={15}/></a></article></div>
       </div>
