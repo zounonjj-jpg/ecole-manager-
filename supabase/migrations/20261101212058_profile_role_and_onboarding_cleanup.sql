@@ -1,0 +1,5 @@
+alter table public.profiles add column if not exists intended_role text not null default 'director' check(intended_role in ('director','school_admin','teacher','student','parent','accountant','secretary'));
+create or replace function public.handle_new_user() returns trigger language plpgsql security definer set search_path = '' as $$ begin insert into public.profiles(id,full_name,intended_role) values(new.id,coalesce(new.raw_user_meta_data->>'full_name',''),case when new.raw_user_meta_data->>'intended_role' in ('director','school_admin','teacher','student','parent','accountant','secretary') then new.raw_user_meta_data->>'intended_role' else 'director' end) on conflict(id) do nothing; return new; end; $$;
+revoke all on function public.handle_new_user() from public,anon,authenticated;
+drop policy if exists institutions_delete_owner_without_membership on public.institutions;
+create policy institutions_delete_owner_without_membership on public.institutions for delete to authenticated using(created_by=(select auth.uid()) and not exists(select 1 from public.institution_memberships m where m.institution_id=id));
