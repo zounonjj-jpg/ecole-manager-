@@ -9,7 +9,7 @@ import { createClient } from "@/lib/supabase/client";
 type Mode = "login" | "register";
 const roles = [
   { value: "director", label: "Directeur / Directrice" },
-  { value: "admin", label: "Administration scolaire" },
+  { value: "school_admin", label: "Administration scolaire" },
   { value: "teacher", label: "Enseignant / Formateur" },
   { value: "student", label: "Élève / Étudiant" },
   { value: "parent", label: "Parent / Responsable" },
