@@ -39,7 +39,7 @@ export function AuthForm({ mode }: { mode: Mode }) {
       if (isRegister) {
         const { data, error: authError } = await supabase.auth.signUp({
           email, password,
-          options: { emailRedirectTo: `${window.location.origin}/auth/callback?next=/configuration`, data: { full_name: fullName.trim(), intended_role: role, institution_name: school.trim() } },
+          options: { data: { full_name: fullName.trim(), intended_role: role, institution_name: school.trim() } },
         });
         if (authError) throw authError;
         if (data.session) router.push("/espace");
