@@ -112,7 +112,7 @@ export default async function LearnersPage({ searchParams }: PageProps) {
           {canManage && (
             <section className="module-card learner-create">
               <div className="module-card-heading"><div><span className="module-icon"><UserPlus size={18}/></span><div><h2>Ajouter un apprenant</h2><p>Enregistrez un élève ou un étudiant dans votre établissement.</p></div></div></div>
-              <form action={addLearner} className="learner-form">
+              <form id="learner-form" action={addLearner} className="learner-form">
                 <div className="learner-fields">
                   <label>Prénom *<input name="first_name" required minLength={2} maxLength={80} placeholder="Prénom"/></label>
                   <label>Nom *<input name="last_name" required minLength={2} maxLength={80} placeholder="Nom de famille"/></label>
@@ -147,7 +147,7 @@ export default async function LearnersPage({ searchParams }: PageProps) {
                 <div className="table-pagination"><span>Page {currentPage} sur {pageCount} · {total.toLocaleString("fr-FR")} apprenant(s)</span><div>{currentPage > 1 && <Link href={"/espace/apprenants?page=" + (currentPage - 1)}><ChevronLeft size={16}/> Précédent</Link>}{currentPage < pageCount && <Link href={"/espace/apprenants?page=" + (currentPage + 1)}>Suivant <ChevronRight size={16}/></Link>}</div></div>
               </>
             ) : (
-              <div className="module-empty"><span><Users size={26}/></span><h3>Aucun apprenant enregistré</h3><p>Ajoutez votre premier élève ou étudiant à l'aide du formulaire ci-dessus.</p>{canManage && <a href="#top" className="text-link">Remplir le formulaire <ArrowUpRight size={14}/></a>}</div>
+              <div className="module-empty"><span><Users size={26}/></span><h3>Aucun apprenant enregistré</h3><p>Ajoutez votre premier élève ou étudiant à l'aide du formulaire ci-dessus.</p>{canManage && <a href="#learner-form" className="text-link">Remplir le formulaire <ArrowUpRight size={14}/></a>}</div>
             )}
           </section>
           <p className="module-footnote">Affichage de 30 apprenants par page. Les autorisations sont contrôlées par la base de données.</p>
