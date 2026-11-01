@@ -39,7 +39,7 @@ export async function addLearner(formData: FormData) {
   if (firstName.length < 2 || firstName.length > 80 || lastName.length < 2 || lastName.length > 80) {
     redirect("/espace/apprenants?error=name");
   }
-  if (studentNumber.length > 60 || guardianName.length > 120 || guardianPhone.length > 30) {
+  if (studentNumber.length > 60 || guardianName.length > 120 || guardianEmail.length > 254 || guardianPhone.length > 30) {
     redirect("/espace/apprenants?error=length");
   }
   if (guardianEmail && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(guardianEmail)) {
