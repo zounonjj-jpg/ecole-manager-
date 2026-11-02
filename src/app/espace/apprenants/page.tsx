@@ -1,12 +1,13 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import {
-  GraduationCap, Users, BookOpen, CalendarCheck, Wallet, ClipboardList,
+  Users, BookOpen, CalendarCheck, Wallet, ClipboardList,
   Settings, LogOut, Bell, CircleHelp, UserPlus, ChevronLeft, ChevronRight,
   ShieldCheck, ArrowUpRight
 } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
 import { addLearner } from "./actions";
+import { BrandLogo } from "@/components/brand-logo";
 
 type PageProps = {
   searchParams: Promise<{ page?: string; created?: string; error?: string }>;
@@ -73,7 +74,7 @@ export default async function LearnersPage({ searchParams }: PageProps) {
   return (
     <main className="workspace">
       <aside className="sidebar">
-        <Link href="/" className="brand"><span className="brand-mark"><GraduationCap size={21}/></span><span>School<span className="brand-accent">Manager</span></span></Link>
+        <Link href="/" className="brand"><span className="brand-mark brand-mark-image"><BrandLogo size={44}/></span><span>School<span className="brand-accent">Manager</span></span></Link>
         <div className="workspace-label">ESPACE DE TRAVAIL</div>
         <nav className="side-nav">
           <Link href="/espace"><ClipboardList size={18}/> Vue d'ensemble</Link>
