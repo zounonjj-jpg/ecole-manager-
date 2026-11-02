@@ -3,7 +3,8 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Eye, EyeOff, GraduationCap, ArrowLeft, LoaderCircle } from "lucide-react";
+import { Eye, EyeOff, ArrowLeft, LoaderCircle } from "lucide-react";
+import { BrandLogo } from "@/components/brand-logo";
 import { createClient } from "@/lib/supabase/client";
 
 type Mode = "login" | "register";
@@ -61,14 +62,14 @@ export function AuthForm({ mode }: { mode: Mode }) {
     <div className="auth-side">
       <Link href="/" className="auth-back"><ArrowLeft size={16}/> Retour à l'accueil</Link>
       <div className="auth-side-content">
-        <span className="auth-brand"><span className="brand-mark"><GraduationCap size={22}/></span> School<span>Manager</span></span>
+        <span className="auth-brand"><span className="brand-mark brand-mark-image"><BrandLogo size={48}/></span> School<span>Manager</span></span>
         <div className="auth-side-message"><span className="eyebrow">LA RÉUSSITE SE CONSTRUIT ENSEMBLE</span><h1>Une école mieux organisée. Un avenir mieux préparé.</h1><p>Retrouvez les outils essentiels de votre communauté éducative dans un espace simple, sécurisé et accessible.</p></div>
         <div className="auth-side-foot">Une plateforme pour les établissements du monde entier.</div>
       </div>
     </div>
     <section className="auth-main">
       <div className="auth-card">
-        <div className="auth-mobile-brand"><span className="brand-mark"><GraduationCap size={20}/></span> School<span>Manager</span></div>
+        <div className="auth-mobile-brand"><span className="brand-mark brand-mark-image"><BrandLogo size={44}/></span> School<span>Manager</span></div>
         <div className="auth-tabs"><Link className={!isRegister ? "active" : ""} href="/connexion">Connexion</Link><Link className={isRegister ? "active" : ""} href="/inscription">Inscription</Link></div>
         <span className="eyebrow">{isRegister ? "REJOIGNEZ SCHOOL MANAGER" : "HEUREUX DE VOUS RETROUVER"}</span>
         <h2>{isRegister ? "Créez votre compte" : "Connectez-vous"}</h2>
