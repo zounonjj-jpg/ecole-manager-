@@ -30,10 +30,10 @@ export default function Home() {
       <section className="hero-banner" aria-label="Présentation de School Manager">
         <div className="hero-banner-frame">
           <Image
-            src="/brand/school-manager-hero.webp"
+            src="/brand/school-manager-hero.avif"
             alt="School Manager, la solution de gestion des écoles et universités, avec une équipe éducative et un tableau de bord."
-            width={1000}
-            height={563}
+            width={1200}
+            height={675}
             priority
             sizes="100vw"
             className="hero-banner-image"
