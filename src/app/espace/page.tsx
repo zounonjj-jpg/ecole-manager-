@@ -5,6 +5,7 @@ import {
   Settings, LogOut, Bell, Search, ArrowUpRight, CircleHelp, ShieldCheck
 } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
+import { BrandLogo } from "@/components/brand-logo";
 
 export default async function WorkspacePage() {
   const supabase = await createClient();
@@ -35,7 +36,7 @@ export default async function WorkspacePage() {
 
   return <main className="workspace">
     <aside className="sidebar">
-      <Link href="/" className="brand"><span className="brand-mark"><GraduationCap size={21}/></span><span>School<span className="brand-accent">Manager</span></span></Link>
+      <Link href="/" className="brand"><span className="brand-mark brand-mark-image"><BrandLogo size={44}/></span><span>School<span className="brand-accent">Manager</span></span></Link>
       <div className="workspace-label">ESPACE DE TRAVAIL</div>
       <nav className="side-nav">
         <Link className="selected" href="/espace"><ClipboardList size={18}/> Vue d'ensemble</Link>
